@@ -5,7 +5,7 @@ interface Pet extends Document {
     species: string;
     carry: string;
     weight: number;
-    date_of_birth: string;
+    birthDate: string;
     tutor: Schema.Types.ObjectId;
 }
 
@@ -14,7 +14,7 @@ const PetSchema = new Schema<Pet>({
     species: { type: 'string', required: true },
     carry: { type: 'string', required: true },
     weight: { type: 'number', required: true },
-    date_of_birth: { type: 'string', required: true },
+    birthDate: { type: 'string', required: true },
     tutor: { type: Schema.Types.ObjectId, ref: 'Tutor', required: true },
 });
 
