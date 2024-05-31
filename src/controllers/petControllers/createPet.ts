@@ -15,10 +15,10 @@ export const createPet = async (req: Request, res: Response) => {
         const pet = new Pet({ ...req.body, tutor: tutor._id }) as any;
         await pet.save();
 
-        tutor.pets.push(pet._id)
-        await tutor.save()
+        tutor.pets.push(pet._id);
+        await tutor.save();
 
-        res.status(201).json({ pet })
+        res.status(201).json({ pet });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
