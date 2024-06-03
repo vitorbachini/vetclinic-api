@@ -6,6 +6,7 @@ export const updatePet = async (req: Request, res: Response) => {
     try {
         const updatedPet = await Pet.findByIdAndUpdate(petId, req.body, {
             new: true,
+            runValidators: true,
         });
         if (!updatePet) {
             return res
