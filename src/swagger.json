@@ -1,0 +1,306 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "VetClinic API",
+        "description": "A simple API for managing tutors and pets.",
+        "version": "1.0.0"
+    },
+    "servers":[
+        {
+            "url":"http://localhost:3000/api/v1"
+        }
+    ],
+    "paths": {
+        "/tutor":{
+            "post": {
+                "summary": "Create a new tutor.",
+                "tags": ["Tutors"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema":{
+                              "$ref": "#/components/schemas/Tutor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400":{
+                        "description": "Bad request."
+                    },
+                    "500":{
+                        "description": "Server error."
+                    },
+                    "201":{
+                        "description": "Tutor created successfully.",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Tutor"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tutors":{
+            "get": {
+                "summary": "Get all tutors.",
+                "tags": ["Tutors"],
+                "responses": {
+                    "200":{
+                        "description": "Ok",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Tutor"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Server error."
+                    }
+                }
+            }
+        },
+        "/tutor/{id}":{
+            "patch": {
+                "summary": "Update a specific tutor by id.",
+                "tags": ["Tutors"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "Tutor id to update.",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema":{
+                              "$ref": "#/components/schemas/Tutor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Tutor successfully updated",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Tutor"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Bad request."
+                    },
+                    "404":{
+                        "description": "No tutor with the specified id."
+                    },
+                    "500":{
+                        "description": "Server error."
+                    }
+                }                
+            },
+            "delete": {
+                "summary": "Delete a specific tutor by id.",
+                "tags": ["Tutors"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "Tutor id to delete.",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Tutor successfully deleted."
+                    },
+                    "404":{
+                        "description": "No tutor with the specified id."
+                    },
+                    "500":{
+                        "description": "Server error."
+                    }
+                }                
+            }
+        },
+        "/pet/{tutorId}":{
+            "post":{
+                "summary": "Create a new pet.",
+                "tags": ["Pets"],
+                "parameters": [
+                    {
+                        "name":"tutorId",
+                        "in": "path",
+                        "description": "Tutor id to designate a new pet.",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema":{
+                              "$ref": "#/components/schemas/Pet"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400":{
+                        "description": "Bad request."
+                    },
+                    "500":{
+                        "description": "Server error."
+                    },
+                    "201":{
+                        "description": "Pet created successfully.",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Pet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pet/{petId}/tutor/{tutorId}":{
+            "patch": {
+                "summary": "Update a specific pet by id.",
+                "tags": ["Pets"],
+                "parameters": [
+                    {
+                        "name":"petId",
+                        "in": "path",
+                        "description": "Pet id to update.",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name":"tutorId",
+                        "in": "path",
+                        "description": "Tutor id responsable for the pet.",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema":{
+                              "$ref": "#/components/schemas/Pet"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Pet successfully updated",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Pet"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Bad request."
+                    },
+                    "404":{
+                        "description": "No pet or tutor with the specified id."
+                    },
+                    "500":{
+                        "description": "Server error."
+                    }
+                }                
+            },
+            "delete": {
+                "summary": "Delete a specific pet by id.",
+                "tags": ["Pets"],
+                "parameters": [
+                    {
+                        "name":"petId",
+                        "in": "path",
+                        "description": "Pet id to delete.",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name":"tutorId",
+                        "in": "path",
+                        "description": "Tutor id responsable for the pet.",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Pet successfully deleted"
+                    },
+                    "404":{
+                        "description": "No pet or tutor with the specified id."
+                    },
+                    "500":{
+                        "description": "Server error."
+                    }
+                }                
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Tutor":{
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string", "example": "João da Silva"},
+                    "phone": {"type": "string", "example": "988887777"},
+                    "email": {"type": "string", "example": "teste@email.com"},
+                    "birthDate": {"type": "string", "example": "1999-01-01"},
+                    "cep": {"type": "string", "example": "12345-067"}
+                }
+            },
+            "Pet":{
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string", "example": "Milho"},
+                    "species": {"type": "string", "example": "Dog"},
+                    "carry": {"type": "string", "example": "G"},
+                    "weight": {"type": "string", "example": "7.0"},
+                    "birthDate": {"type": "string", "example": "2005-01-01"}
+                }
+            }
+        }
+    }
+}
